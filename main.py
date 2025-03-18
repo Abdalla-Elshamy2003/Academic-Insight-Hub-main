@@ -30,6 +30,10 @@ div[data-testid="stSidebarNav"] {display: none;}
 </style>
 """, unsafe_allow_html=True)
 
+# Load custom CSS
+with open(os.path.join(os.path.dirname(__file__), ".streamlit/style.css")) as f:
+    st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
 try:
     # Initialize database (will only run once due to session state flag)
     init_db()
@@ -114,7 +118,7 @@ try:
                 st.markdown("### View Content")
                 view_option = st.radio(
                     "Select what to view:",
-                    ["Courses and Chapters", "Questions", "Analytics Dashboard"],
+                    ["Courses and Chapters", "Analytics Dashboard"],
                     horizontal=True,
                     key="staff_view_option"
                 )
@@ -122,9 +126,6 @@ try:
                 if view_option == "Courses and Chapters":
                     import pages.view as view_page
                     view_page.show_courses_and_chapters()
-                elif view_option == "Questions":
-                    import pages.view as view_page
-                    view_page.show_questions()
                 elif view_option == "Analytics Dashboard":
                     import pages.Analytics_Dashboard as analytics
                     analytics.show_analytics()
@@ -137,7 +138,7 @@ try:
                 st.markdown("### Add Content")
                 add_option = st.radio(
                     "What would you like to add?",
-                    ["Course", "Chapter", "Question", "AI Question Generator", "Exam Builder", "View Exams"],
+                    ["Course", "Chapter", "AI Question Generator", "Exam Builder", "View Exams", "Response Comparison"],
                     horizontal=True,
                     key="staff_add_option"
                 )
@@ -148,9 +149,6 @@ try:
                 elif add_option == "Chapter":
                     import pages.add as add_page
                     add_page.add_chapter()
-                elif add_option == "Question":
-                    import pages.add as add_page
-                    add_page.add_question()
                 elif add_option == "AI Question Generator":
                     import pages.question_generator as qg_page
                     qg_page.show_question_generator()
@@ -160,6 +158,9 @@ try:
                 elif add_option == "View Exams":
                     import pages.add as add_page
                     add_page.view_exams()
+                elif add_option == "Response Comparison":
+                    import pages.response_comparison as rc_page
+                    rc_page.show_response_comparison()
             
             # Manage Profile Tab Content
             with current_tab[2]:
@@ -223,7 +224,7 @@ try:
                 st.markdown("### View Content")
                 view_option = st.radio(
                     "Select what to view:",
-                    ["Courses and Chapters", "Questions"],
+                    ["Courses and Chapters"],
                     horizontal=True,
                     key="student_view_option"
                 )
@@ -231,9 +232,6 @@ try:
                 if view_option == "Courses and Chapters":
                     import pages.view as view_page
                     view_page.show_courses_and_chapters()
-                elif view_option == "Questions":
-                    import pages.view as view_page
-                    view_page.show_questions()
             
             # My Progress Tab Content
             with current_tab[1]:

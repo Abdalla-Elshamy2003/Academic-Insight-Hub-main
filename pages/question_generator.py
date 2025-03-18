@@ -107,6 +107,38 @@ def show_question_generator():
             key="explanation"
         )
         
+        # Add new fields for difficulty, student level, and estimated time
+        st.markdown("### Additional Settings")
+        st.info("You can manually set these values or let the AI determine them automatically.")
+        
+        # Difficulty level slider from 1 to 5
+        difficulty_level = st.slider(
+            "Difficulty Level",
+            min_value=1,
+            max_value=5,
+            value=3,
+            step=1,
+            help="Set the difficulty level of the question from 1 (easiest) to 5 (hardest)"
+        )
+        
+        # Student level selection
+        student_level = st.selectbox(
+            "Student Level",
+            options=["Beginner", "Intermediate", "Advanced"],
+            index=1,  # Default to Intermediate
+            help="Select the appropriate student level for this question"
+        )
+        
+        # Estimated time in minutes
+        estimated_time = st.number_input(
+            "Estimated Time (minutes)",
+            min_value=1,
+            max_value=60,
+            value=5,
+            step=1,
+            help="Estimate how many minutes it would take to answer this question"
+        )
+        
         # For multiple choice, add options
         options = []
         if question_type == "Multiple Choice":
@@ -149,11 +181,16 @@ def show_question_generator():
                         
                         # Extract time directly from the analysis text
                         time_match = re.search(r'\*\*Estimated Time:\*\* (\d+) minutes', analysis_text)
-                        estimated_time = int(time_match.group(1)) if time_match else 5  # default to 5 minutes
+                        estimated_time_ai = int(time_match.group(1)) if time_match else 5  # default to 5 minutes
                         
                         # Extract student level directly from the analysis text
                         level_match = re.search(r'\*\*Appropriate Student Level:\*\* (\w+)', analysis_text)
-                        student_level = level_match.group(1) if level_match else "Intermediate"
+                        student_level_ai = level_match.group(1) if level_match else "Intermediate"
+                        
+                        # Use manually set values if they differ from defaults, otherwise use AI values
+                        final_difficulty = difficulty_level if difficulty_level != 3 else float(difficulty_rating)
+                        final_estimated_time = estimated_time if estimated_time != 5 else estimated_time_ai
+                        final_student_level = student_level if student_level != "Intermediate" else student_level_ai
                         
                         # Format correct answer for multiple choice questions
                         final_correct_answer = correct_answer
@@ -168,9 +205,9 @@ def show_question_generator():
                             question_type=question_type,
                             correct_answer=final_correct_answer,
                             explanation=explanation,
-                            difficulty=float(difficulty_rating),
-                            estimated_time=estimated_time,
-                            student_level=student_level,
+                            difficulty=final_difficulty,
+                            estimated_time=final_estimated_time,
+                            student_level=final_student_level,
                             created_at=datetime.utcnow(),
                             updated_at=datetime.utcnow(),
                             created_by=st.session_state.user["id"]  # Track who created the question

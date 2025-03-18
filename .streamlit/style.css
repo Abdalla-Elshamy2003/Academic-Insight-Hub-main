@@ -1,0 +1,93 @@
+/* Custom CSS for Academic Insight Hub */
+
+/* Improve overall text contrast and readability */
+.stApp {
+    color: #1E293B;
+    background-color: #F0F4F8;
+}
+
+/* Improve sidebar styling */
+section[data-testid="stSidebar"] {
+    background-color: #E2E8F0;
+    color: #1E293B;
+}
+
+/* Improve button styling for better visibility */
+button[kind="primary"] {
+    background-color: #4B89DC;
+    color: white;
+}
+
+button[kind="secondary"] {
+    background-color: #E2E8F0;
+    color: #1E293B;
+    border: 1px solid #CBD5E0;
+}
+
+/* Improve input field styling */
+input, textarea, select {
+    background-color: #FFFFFF;
+    color: #1E293B;
+    border: 1px solid #CBD5E0;
+}
+
+/* Improve card/container styling */
+div.stBlock {
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    padding: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Improve header styling */
+h1, h2, h3, h4, h5, h6 {
+    color: #2D3748;
+}
+
+/* Improve link styling */
+a {
+    color: #4B89DC;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Improve table styling */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table th {
+    background-color: #E2E8F0;
+    color: #1E293B;
+    font-weight: bold;
+    padding: 0.5rem;
+    text-align: left;
+}
+
+table td {
+    background-color: #FFFFFF;
+    color: #1E293B;
+    padding: 0.5rem;
+    border-bottom: 1px solid #E2E8F0;
+}
+
+/* Improve code block styling */
+code {
+    background-color: #E2E8F0;
+    color: #1E293B;
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+}
+
+/* Improve alert/message styling */
+div[data-baseweb="notification"] {
+    background-color: #E2E8F0;
+    color: #1E293B;
+    border-radius: 5px;
+    padding: 1rem;
+    margin: 1rem 0;
+}

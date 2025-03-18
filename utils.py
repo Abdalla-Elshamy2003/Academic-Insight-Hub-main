@@ -212,6 +212,11 @@ def paginate_data(items: List[Any], items_per_page: int = 10, key: str = None) -
     return current_page_items
 
 def rerun():
-    """Rerun the app using meta refresh."""
-    st.markdown("<meta http-equiv='refresh' content='0'>", unsafe_allow_html=True)
-    st.stop()
+    """Rerun the app using Streamlit's rerun function.
+    This preserves session state and prevents redirection to login page.
+    """
+    # Use Streamlit's native rerun instead of meta refresh to preserve session state
+    st.rerun()
+    # Fallback in case st.rerun() doesn't work in older Streamlit versions
+    # st.markdown("<meta http-equiv='refresh' content='0'>", unsafe_allow_html=True)
+    # st.stop()

@@ -82,7 +82,39 @@ def analyze_question(
         
         1. DIFFICULTY RATING: Rate the question's difficulty on a scale of 1.0 to 5.0 (where 1 is easiest and 5 is hardest). Consider the complexity, cognitive load, and alignment with the ILOs.
         
-        2. ESTIMATED TIME: Evaluate and suggest an appropriate time (in minutes) that students would need to answer this question. Consider the question type, complexity, and cognitive requirements. Be specific and realistic.
+        2. ESTIMATED TIME: Carefully evaluate and suggest a precise time (in minutes) that students would need to answer this question. You must be extremely accurate with time estimation. Follow these specific guidelines by question type:
+
+           For Multiple Choice Questions:
+           - Basic recall MC questions: 30-60 seconds per option
+           - Application/analysis MC questions: 1-2 minutes per option
+           - Complex scenario-based MC questions: 2-3 minutes total plus 1 minute per option
+
+           For True/False Questions:
+           - Simple factual T/F: 30-45 seconds
+           - Complex conceptual T/F: 1-2 minutes
+
+           For Short Answer Questions:
+           - Basic recall: 2-3 minutes
+           - Application/analysis: 3-5 minutes
+           - Problem-solving: 5-8 minutes depending on complexity
+
+           For Essay Questions:
+           - Brief response (paragraph): 5-8 minutes
+           - Standard essay: 10-20 minutes
+           - Complex analysis essay: 20-30 minutes
+
+           For Calculation/Problem-Solving Questions:
+           - Simple calculations: 1-2 minutes
+           - Multi-step problems: 3-5 minutes per step
+           - Complex applications: 10-15 minutes
+
+           Additional factors to consider:
+           - Reading time: 200-250 words per minute for question text
+           - Cognitive complexity level (recall: fastest, create: slowest)
+           - Number of distinct concepts that must be integrated
+           - Time needed to review and check work (add 10-20% of total time)
+
+           Calculate the time precisely and provide a whole number of minutes. Be realistic and consider the actual time students need, not the ideal time.
         
         3. STUDENT LEVEL: Indicate which level of student this question is most appropriate for (Beginner, Intermediate, or Advanced).
         
@@ -107,7 +139,7 @@ def analyze_question(
                 {"role": "user", "content": user_prompt}
             ],
             model="llama-3.1-8b-instant",  # Using LLaMA 3 model
-            temperature=0.3,
+            temperature=0.1,  # Lower temperature for more deterministic responses
             max_tokens=1024,
             top_p=1,
             stream=False
